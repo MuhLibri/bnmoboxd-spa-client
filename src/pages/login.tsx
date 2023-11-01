@@ -2,7 +2,7 @@ import AuthLayout from '@/components/layout/auth.tsx';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils.ts';
 import { buttonVariants } from '@/components/ui/button.tsx';
-import { LoginForm } from '@/components/auth/LoginForm.tsx';
+import { LoginForm } from '@/components/auth/login-form.tsx';
 
 const LoginPage = () => {
   return (
