@@ -4,14 +4,25 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { Input } from '@/components/ui/input.tsx';
-import { login } from '@/services/auth.ts';
-import { redirect } from 'react-router-dom';
+import { login, LoginPayload } from '@/services/auth.ts';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 
 const loginFormSchema = z.object({
   username: z.string().min(1, { message: 'Please fill in your username!' }),
   password: z.string().min(1, { message: 'Please fill in your password!' }),
 });
 export const LoginForm = () => {
+  const navigate = useNavigate();
+  const mutation = useMutation({
+    mutationFn: (payload: LoginPayload) => {
+      return login(payload);
+    },
+    onSuccess: () => {
+      navigate('/');
+    },
+  });
+
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -20,14 +31,9 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
-    const res = await login(values);
-    redirect('/');
-  };
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(values => mutation.mutate(values))} className="space-y-8">
         <FormField
           control={form.control}
           name="username"
@@ -54,6 +60,7 @@ export const LoginForm = () => {
             </FormItem>
           )}
         />
+        {mutation.isError && <p className="text-destructive text-sm">Invalid Credentials</p>}
         <div className="flex justify-end w-full">
           <Button type="submit">Login</Button>
         </div>
