@@ -5,6 +5,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Button } from '@/components/ui/button.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { register } from '@/services/auth.ts';
+import { redirect } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 const loginFormSchema = z.object({
   email: z.string({ required_error: "Email can't be empty" }).email({ message: 'Email is invalid' }),
@@ -22,7 +24,26 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
-    const res = await register(values);
+    try {
+      await register(values);
+      redirect('/');
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const fieldErrors = err.response?.data.fieldErrors;
+        if (fieldErrors?.username) {
+          form.setError('username', {
+            type: 'manual',
+            message: fieldErrors?.username,
+          });
+        }
+        if (fieldErrors?.email) {
+          form.setError('email', {
+            type: 'manual',
+            message: fieldErrors?.email,
+          });
+        }
+      }
+    }
   };
 
   return (
