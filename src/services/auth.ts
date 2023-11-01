@@ -2,12 +2,12 @@ import { api } from '@/utils/api.ts';
 import { BaseResponse, User } from '@/utils/interfaces.ts';
 import { setToken } from '@/utils/token-storage.ts';
 
-interface LoginPayload {
+export interface LoginPayload {
   username: string;
   password: string;
 }
 
-interface RegisterPayload extends LoginPayload {
+export interface RegisterPayload extends LoginPayload {
   firstName: string;
   lastName?: string;
   email: string;
