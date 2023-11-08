@@ -29,7 +29,7 @@ export const SideBar = ({ items }: { items: NavItem[] }) => {
   return (
     <Card className="p-8 flex lg:flex-col justify-between max-h-screen sticky top-0">
       <div className="space-y-2 flex lg:space-y-8 lg:flex-col justify-between w-full">
-        <img src="public/logo.png" alt="logo" className="lg:mx-auto w-[100px] lg:w-[150px]" />
+        <img src="/logo.png" alt="logo" className="lg:mx-auto w-[100px] lg:w-[150px]" />
         <nav className="space-x-2 lg:space-x-0 lg:space-y-1 hidden lg:flex lg:flex-col">
           {items.map(item => (
             <NavItem item={item} key={item.link} />
