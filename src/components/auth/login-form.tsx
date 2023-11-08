@@ -7,6 +7,8 @@ import { Input } from '@/components/ui/input.tsx';
 import { login, LoginPayload } from '@/services/auth.ts';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { useToast } from '@/components/ui/use-toast.ts';
+import { AxiosError } from 'axios';
 
 const loginFormSchema = z.object({
   username: z.string().min(1, { message: 'Please fill in your username!' }),
@@ -14,12 +16,21 @@ const loginFormSchema = z.object({
 });
 export const LoginForm = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const mutation = useMutation({
     mutationFn: (payload: LoginPayload) => {
       return login(payload);
     },
     onSuccess: () => {
       navigate('/');
+    },
+    onError: err => {
+      if (err instanceof AxiosError) {
+        toast({
+          variant: 'destructive',
+          description: err.response?.data.message,
+        });
+      }
     },
   });
 
@@ -60,7 +71,6 @@ export const LoginForm = () => {
             </FormItem>
           )}
         />
-        {mutation.isError && <p className="text-destructive text-sm">Invalid Credentials</p>}
         <div className="flex justify-end w-full">
           <Button type="submit">Login</Button>
         </div>

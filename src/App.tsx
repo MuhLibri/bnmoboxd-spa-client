@@ -8,6 +8,7 @@ import { ProtectedRoute } from '@/components/protected-route.tsx';
 import CuratorDashboard from '@/pages/curator';
 import { Reviews } from '@/pages/curator/reviews.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from '@/components/ui/toaster.tsx';
 
 function App() {
   const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster />
     </QueryClientProvider>
   );
 }

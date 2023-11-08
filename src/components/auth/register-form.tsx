@@ -4,11 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { Input } from '@/components/ui/input.tsx';
-import { register } from '@/services/auth.ts';
-import { redirect } from 'react-router-dom';
+import { register, RegisterPayload } from '@/services/auth.ts';
+import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import { useToast } from '@/components/ui/use-toast.ts';
 
-const loginFormSchema = z.object({
+const registerFormSchema = z.object({
   email: z.string({ required_error: "Email can't be empty" }).email({ message: 'Email is invalid' }),
   username: z
     .string({ required_error: "Username can't be empty" })
@@ -19,15 +21,23 @@ const loginFormSchema = z.object({
   lastName: z.string().optional(),
 });
 export const RegisterForm = () => {
-  const form = useForm<z.infer<typeof loginFormSchema>>({
-    resolver: zodResolver(loginFormSchema),
+  const form = useForm<z.infer<typeof registerFormSchema>>({
+    resolver: zodResolver(registerFormSchema),
   });
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
-    try {
-      await register(values);
-      redirect('/');
-    } catch (err) {
+  const mutation = useMutation({
+    mutationFn: (payload: RegisterPayload) => {
+      return register(payload);
+    },
+    onSuccess: () => {
+      toast({
+        description: 'Register successful! Please wait while we verify your account',
+      });
+      navigate('/login');
+    },
+    onError: err => {
       if (err instanceof AxiosError) {
         const fieldErrors = err.response?.data.fieldErrors;
         if (fieldErrors?.username) {
@@ -43,12 +53,12 @@ export const RegisterForm = () => {
           });
         }
       }
-    }
-  };
+    },
+  });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(values => mutation.mutate(values))} className="space-y-8">
         <FormField
           control={form.control}
           name="firstName"

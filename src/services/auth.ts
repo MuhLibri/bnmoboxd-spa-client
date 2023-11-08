@@ -29,9 +29,6 @@ export const login = async (payload: LoginPayload): Promise<User> => {
   return res.data.auth.user;
 };
 
-export const register = async (payload: RegisterPayload): Promise<User> => {
-  const response = await api.post('/auth/register', payload);
-  const res = response.data as AuthResponse;
-  setToken(res.data.auth.access_token);
-  return res.data.auth.user;
+export const register = async (payload: RegisterPayload) => {
+  await api.post('/auth/register', payload);
 };
