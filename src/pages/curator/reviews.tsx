@@ -32,7 +32,7 @@ export const Reviews = () => {
           return <ReviewCard key={i} data={review} />;
         })}
       </div>
-      <Pagination totalItems={data?.count || 0} take={9} />
+      {data && data.count > 0 && <Pagination totalItems={data.count || 0} take={9} />}
     </CuratorLayout>
   );
 };
