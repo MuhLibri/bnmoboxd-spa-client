@@ -31,3 +31,8 @@ export interface Film {
 }
 
 export type SUBSCRIPTION_STATUS = 'PENDING' | 'ACCEPTED' | 'REJECTED';
+export interface Subscription {
+  curatorUsername: string;
+  subscriberUsername: string;
+  status: SUBSCRIPTION_STATUS;
+}
