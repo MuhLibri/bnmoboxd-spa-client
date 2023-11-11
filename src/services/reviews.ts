@@ -3,6 +3,7 @@ import { BaseResponse, CuratorReview } from '@/utils/interfaces.ts';
 
 export interface CreatedCuratorReview extends CuratorReview {
   id: number;
+  film: string;
 }
 interface CuratorReviewsResponse extends BaseResponse {
   data: {

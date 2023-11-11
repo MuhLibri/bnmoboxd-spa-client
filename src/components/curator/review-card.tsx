@@ -10,7 +10,7 @@ export function ReviewCard({ data }: { data: CreatedCuratorReview }) {
     <Card className="w-full flex items-stretch flex-col">
       <CardHeader className="items-start gap-4 space-y-0 flex flex-grow">
         <div className="space-y-4 max-w-full">
-          <CardTitle>{data.filmId}</CardTitle>
+          <CardTitle>{data.film}</CardTitle>
           <CardDescription>{data.review}</CardDescription>
           <div className="flex flex-row items-center">
             {[...Array(data.rating)].map((_, i) => {
