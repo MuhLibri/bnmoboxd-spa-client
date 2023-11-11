@@ -1,16 +1,18 @@
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table.tsx';
-import { SubscriptionBadge } from '@/components/admin/subscription-badge.tsx';
+import { VerificationBadge } from '@/components/admin/verification-badge.tsx';
 import { AcceptDialog, RejectDialog } from '@/components/admin/manage-subscriptions-dialog.tsx';
 import { useQuery } from '@tanstack/react-query';
-import { getSubscriptions } from '@/services/subscriptions.ts';
+import { getUserVerifications } from '@/services/verifications.ts';
 import { Loader2 } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { Pagination } from '@/components/ui/pagination.tsx';
+import { getSubscriptions } from '@/services/subscriptions.ts';
 
 export const VerificationsTable = () => {
   const [searchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1');
-  const { data, isLoading } = useQuery({ queryKey: ['subscriptions', page], queryFn: () => getSubscriptions({ page, take: 9 }) });
+  // const { data, isLoading } = useQuery({ queryKey: ['subscriptions', page], queryFn: () => getSubscriptions({ page, take: 9 }) });
+  const { data, isLoading } = useQuery({ queryKey: ['verifications', page], queryFn: () => getUserVerifications({ page, take: 9 }) });
 
   return (
     <Table className="w-full">
@@ -19,6 +21,7 @@ export const VerificationsTable = () => {
         <TableRow>
           <TableHead>Username</TableHead>
           <TableHead>Name</TableHead>
+          <TableHead>Status</TableHead>
           <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
@@ -30,8 +33,11 @@ export const VerificationsTable = () => {
         )}
         {data?.subscriptions.map((sub, index) => (
           <TableRow key={index}>
-            <TableCell>{sub.subscriberUsername}</TableCell>
-            <TableCell>{sub.curatorUsername}</TableCell>
+            <TableCell>{sub.username}</TableCell>
+            <TableCell>{sub.name}</TableCell>
+            <TableCell>
+              <VerificationBadge status={sub.status} />
+            </TableCell>
             <TableCell>
               <div className="flex flex-row items-center space-x-4">
                 <AcceptDialog subscription={sub} />

@@ -8,7 +8,7 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
       link: '/',
     },
     {
-      title: 'Verification',
+      title: 'Verifications',
       link: '/verification',
     },
   ];
