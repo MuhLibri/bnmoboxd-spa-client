@@ -10,27 +10,27 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button.tsx';
 import { useState } from 'react';
-import { Subscription } from '@/utils/interfaces.ts';
+import { Verification } from '@/utils/interfaces.ts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { manageSubscription } from '@/services/subscriptions.ts';
+import { manageVerification } from '@/services/verifications.ts';
 import { useToast } from '@/components/ui/use-toast.ts';
 import { AxiosError } from 'axios';
 
-export const AcceptDialog = ({ subscription }: { subscription: Subscription }) => {
+export const AcceptDialog = ({ verification }: { verification: Verification }) => {
   const { toast } = useToast();
-  const { curatorUsername, subscriberUsername, status } = subscription;
+  const { username, name, status } = verification;
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => {
-      return manageSubscription({ curatorUsername, subscriberUsername, status: 'ACCEPTED' });
+      return manageVerification({ username, name, status: 'ACCEPTED' });
     },
     onSuccess: () => {
       toast({
-        description: 'Successfully accepted subscription request',
+        description: 'Successfully accepted verification request',
       });
       setOpen(false);
-      queryClient.invalidateQueries({ queryKey: ['subscriptions'] });
+      queryClient.invalidateQueries({ queryKey: ['verifications'] });
     },
     onError: err => {
       if (err instanceof AxiosError) {
@@ -48,9 +48,7 @@ export const AcceptDialog = ({ subscription }: { subscription: Subscription }) =
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-center">
-            Are you sure you want to accept {subscriberUsername}&apos;s subscription to curator {curatorUsername}?
-          </AlertDialogTitle>
+          <AlertDialogTitle className="text-center">Are you sure you want to accept {username}&apos;s as a curator?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -61,21 +59,21 @@ export const AcceptDialog = ({ subscription }: { subscription: Subscription }) =
   );
 };
 
-export const RejectDialog = ({ subscription }: { subscription: Subscription }) => {
+export const RejectDialog = ({ verification }: { verification: Verification }) => {
   const { toast } = useToast();
-  const { curatorUsername, subscriberUsername, status } = subscription;
+  const { username, name, status } = verification;
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => {
-      return manageSubscription({ curatorUsername, subscriberUsername, status: 'REJECTED' });
+      return manageVerification({ username, name, status: 'REJECTED' });
     },
     onSuccess: () => {
       toast({
-        description: 'Successfully rejected subscription request',
+        description: 'Successfully rejected verification request',
       });
       setOpen(false);
-      queryClient.invalidateQueries({ queryKey: ['subscriptions'] });
+      queryClient.invalidateQueries({ queryKey: ['verifications'] });
     },
     onError: err => {
       if (err instanceof AxiosError) {
@@ -95,9 +93,7 @@ export const RejectDialog = ({ subscription }: { subscription: Subscription }) =
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-center">
-            Are you sure you want to reject {subscriberUsername}&apos;s subscription to curator {curatorUsername}?
-          </AlertDialogTitle>
+          <AlertDialogTitle className="text-center">Are you sure you want to reject {username}&apos;s as a curator?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

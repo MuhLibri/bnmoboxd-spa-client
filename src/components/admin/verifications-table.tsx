@@ -6,12 +6,11 @@ import { getUserVerifications } from '@/services/verifications.ts';
 import { Loader2 } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { Pagination } from '@/components/ui/pagination.tsx';
-import { getSubscriptions } from '@/services/subscriptions.ts';
+
 
 export const VerificationsTable = () => {
   const [searchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1');
-  // const { data, isLoading } = useQuery({ queryKey: ['subscriptions', page], queryFn: () => getSubscriptions({ page, take: 9 }) });
   const { data, isLoading } = useQuery({ queryKey: ['verifications', page], queryFn: () => getUserVerifications({ page, take: 9 }) });
 
   return (

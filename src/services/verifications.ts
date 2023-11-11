@@ -7,9 +7,9 @@ export interface VerificationsResponse {
   data: { verifications: Verification[]; count: number };
 }
 
-export interface ManageSubscriptionPayload {
-  curatorUsername: string;
-  subscriberUsername: string;
+export interface ManageVerificationPayload {
+  username: string;
+  name: string;
   status: SUBSCRIPTION_STATUS;
 }
 export const getUserVerifications = async ({ page, take }: { page: number; take: number }) => {
@@ -17,7 +17,7 @@ export const getUserVerifications = async ({ page, take }: { page: number; take:
   return res.data;
 };
 
-export const manageSubscription = async (payload: ManageSubscriptionPayload) => {
+export const manageVerification = async (payload: ManageVerificationPayload) => {
   const res = (await api.put(`${path}`, payload)).data as VerificationsResponse;
   return res.data;
 };
