@@ -1,6 +1,6 @@
 import { TypographyH2 } from '@/components/ui/typography.tsx';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.tsx';
-import { ChevronRight, FilmIcon, Loader2, MessageCircle, User2 } from 'lucide-react';
+import { ChevronRight, Loader2, MessageCircle, User2 } from 'lucide-react';
 import { Button } from '@/components/ui/button.tsx';
 import { useQuery } from '@tanstack/react-query';
 import { getCuratorReviews } from '@/services/reviews.ts';
@@ -14,7 +14,7 @@ const CuratorDashboard = () => {
   return (
     <CuratorLayout>
       <TypographyH2 text="Curator Dashboard" />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-2xl font-medium">Subscribers</CardTitle>
@@ -27,21 +27,11 @@ const CuratorDashboard = () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-2xl font-medium">Favorite Movies</CardTitle>
-            <FilmIcon />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-primary">5</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-2xl font-medium">Reviews</CardTitle>
             <MessageCircle />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">200</div>
-            <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+            <div className="text-2xl font-bold text-primary">{data?.count}</div>
           </CardContent>
         </Card>
       </div>
