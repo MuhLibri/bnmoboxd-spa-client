@@ -3,8 +3,12 @@ import { Subscription, SUBSCRIPTION_STATUS } from '@/utils/interfaces.ts';
 
 const path = '/subscription';
 
+export interface SubscriptionsData {
+  subscriptions: Subscription[];
+  count: number;
+}
 export interface SubscriptionsResponse {
-  data: { subscriptions: Subscription[]; count: number };
+  data: SubscriptionsData;
 }
 
 export interface ManageSubscriptionPayload {
