@@ -18,8 +18,8 @@ export const SideBar = ({ items }: { items: NavItem[] }) => {
         href={item.link}
         className={cn(
           buttonVariants({ variant: 'ghost' }),
-          pathname === item.link ? 'bg-muted hover:bg-muted' : 'hover:bg-transparent hover:underline',
-          'justify-start text-accent-foreground',
+          pathname === item.link ? 'bg-muted hover:bg-muted' : 'hover:bg-transparent hover:text-primary',
+          'justify-start text-accent-foreground font-normal',
         )}
       >
         {item.title}
