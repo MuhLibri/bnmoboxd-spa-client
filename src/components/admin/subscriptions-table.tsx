@@ -1,20 +1,22 @@
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table.tsx';
 import { SubscriptionBadge } from '@/components/admin/subscription-badge.tsx';
 import { AcceptDialog, RejectDialog } from '@/components/admin/manage-subscriptions-dialog.tsx';
-import { useQuery } from '@tanstack/react-query';
-import { getSubscriptions } from '@/services/subscriptions.ts';
-import { Loader2 } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
+import { SubscriptionsData } from '@/services/subscriptions.ts';
 import { Pagination } from '@/components/ui/pagination.tsx';
+import { Loader2 } from 'lucide-react';
 
-export const SubscriptionsTable = () => {
-  const [searchParams] = useSearchParams();
-  const page = parseInt(searchParams.get('page') || '1');
-  const { data, isLoading } = useQuery({ queryKey: ['subscriptions', page], queryFn: () => getSubscriptions({ page, take: 9 }) });
-
+export const SubscriptionsTable = ({
+  data,
+  isLoading,
+  showPagination,
+}: {
+  data?: SubscriptionsData;
+  isLoading: boolean;
+  showPagination?: boolean;
+}) => {
   return (
     <Table className="w-full">
-      <TableCaption>{data && data.count > 0 && <Pagination totalItems={data.count || 0} take={10} />}</TableCaption>
+      <TableCaption>{data && data.count > 0 && showPagination && <Pagination totalItems={data.count || 0} take={10} />}</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>User</TableHead>
@@ -25,9 +27,11 @@ export const SubscriptionsTable = () => {
       </TableHeader>
       <TableBody>
         {isLoading && (
-          <div className="w-full flex items-center justify-center">
-            <Loader2 className="mr-2 h-12 w-12 animate-spin" />
-          </div>
+          <TableRow>
+            <TableCell colSpan={4}>
+              <Loader2 className="mx-auto h-12 w-12 animate-spin" />
+            </TableCell>
+          </TableRow>
         )}
         {data?.subscriptions.map((sub, index) => (
           <TableRow key={index}>
@@ -44,6 +48,13 @@ export const SubscriptionsTable = () => {
             </TableCell>
           </TableRow>
         ))}
+        {(!data || data.subscriptions.length == 0) && !isLoading && (
+          <TableRow>
+            <TableCell colSpan={4} className="items-center text-center">
+              No results.
+            </TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   );
