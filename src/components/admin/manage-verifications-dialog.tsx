@@ -10,27 +10,27 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button.tsx';
 import { useState } from 'react';
-import { Verification } from '@/utils/interfaces.ts';
+import { UserVerification } from '@/utils/interfaces.ts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { manageVerification } from '@/services/verifications.ts';
 import { useToast } from '@/components/ui/use-toast.ts';
 import { AxiosError } from 'axios';
 
-export const AcceptDialog = ({ verification }: { verification: Verification }) => {
+export const AcceptDialog = ({ userVerification }: { userVerification: UserVerification }) => {
   const { toast } = useToast();
-  const { username, name, status } = verification;
+  const { User, status } = userVerification;
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => {
-      return manageVerification({ username, name, status: 'ACCEPTED' });
+      return manageVerification({ User, status: 'ACCEPTED' });
     },
     onSuccess: () => {
       toast({
         description: 'Successfully accepted verification request',
       });
       setOpen(false);
-      queryClient.invalidateQueries({ queryKey: ['verifications'] });
+      queryClient.invalidateQueries({ queryKey: ['userVerifications'] });
     },
     onError: err => {
       if (err instanceof AxiosError) {
@@ -48,7 +48,7 @@ export const AcceptDialog = ({ verification }: { verification: Verification }) =
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-center">Are you sure you want to accept {username}&apos;s as a curator?</AlertDialogTitle>
+          <AlertDialogTitle className="text-center">Are you sure you want to accept {User.username} as a curator?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -59,14 +59,14 @@ export const AcceptDialog = ({ verification }: { verification: Verification }) =
   );
 };
 
-export const RejectDialog = ({ verification }: { verification: Verification }) => {
+export const RejectDialog = ({ userVerification }: { userVerification: UserVerification }) => {
   const { toast } = useToast();
-  const { username, name, status } = verification;
+  const { User, status } = userVerification;
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => {
-      return manageVerification({ username, name, status: 'REJECTED' });
+      return manageVerification({ User, status: 'REJECTED' });
     },
     onSuccess: () => {
       toast({
@@ -93,7 +93,7 @@ export const RejectDialog = ({ verification }: { verification: Verification }) =
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-center">Are you sure you want to reject {username}&apos;s as a curator?</AlertDialogTitle>
+          <AlertDialogTitle className="text-center">Are you sure you want to reject {User.username} as a curator?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

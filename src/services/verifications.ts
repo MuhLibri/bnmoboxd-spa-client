@@ -1,15 +1,14 @@
 import { api } from '@/utils/api.ts';
-import { Verification, SUBSCRIPTION_STATUS } from '@/utils/interfaces.ts';
+import { UserVerification, UserInfo, SUBSCRIPTION_STATUS } from '@/utils/interfaces.ts';
 
 const path = '/verification';
 
 export interface VerificationsResponse {
-  data: { verifications: Verification[]; count: number };
+  data: { userVerifications: UserVerification[]; count: number };
 }
 
 export interface ManageVerificationPayload {
-  username: string;
-  name: string;
+  User: UserInfo;
   status: SUBSCRIPTION_STATUS;
 }
 export const getUserVerifications = async ({ page, take }: { page: number; take: number }) => {
