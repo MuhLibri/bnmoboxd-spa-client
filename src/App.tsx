@@ -9,6 +9,7 @@ import CuratorDashboard from '@/pages/curator';
 import { Reviews } from '@/pages/curator/reviews.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster.tsx';
+import { Verification } from '@/pages/admin/verification.tsx';
 
 function App() {
   const queryClient = new QueryClient();
@@ -28,6 +29,10 @@ function App() {
     {
       path: '/reviews',
       element: <ProtectedRoute curatorPage={<Reviews />} />,
+    },
+    {
+      path: '/verification',
+      element: <ProtectedRoute adminPage={<Verification />} />,
     },
     {
       path: '*',

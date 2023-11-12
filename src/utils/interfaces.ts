@@ -36,3 +36,14 @@ export interface Subscription {
   subscriberUsername: string;
   status: SUBSCRIPTION_STATUS;
 }
+
+export interface UserVerification {
+  User: UserInfo;
+  status: SUBSCRIPTION_STATUS;
+}
+
+export interface UserInfo {
+  username: string;
+  firstName: string;
+  lastName: string;
+}
