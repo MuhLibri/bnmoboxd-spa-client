@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { useState } from 'react';
 import { UserVerification } from '@/utils/interfaces.ts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { manageVerification } from '@/services/verifications.ts';
+import { acceptVerification, rejectVerification } from '@/services/verifications.ts';
 import { useToast } from '@/components/ui/use-toast.ts';
 import { AxiosError } from 'axios';
 
@@ -23,7 +23,7 @@ export const AcceptDialog = ({ userVerification }: { userVerification: UserVerif
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => {
-      return manageVerification({ User, status: 'ACCEPTED' });
+      return acceptVerification(User.id);
     },
     onSuccess: () => {
       toast({
@@ -66,7 +66,7 @@ export const RejectDialog = ({ userVerification }: { userVerification: UserVerif
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => {
-      return manageVerification({ User, status: 'REJECTED' });
+      return rejectVerification(User.id);
     },
     onSuccess: () => {
       toast({
