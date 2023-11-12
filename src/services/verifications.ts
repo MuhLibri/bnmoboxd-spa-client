@@ -1,22 +1,27 @@
 import { api } from '@/utils/api.ts';
-import { UserVerification, UserInfo, SUBSCRIPTION_STATUS } from '@/utils/interfaces.ts';
+import { UserVerification } from '@/utils/interfaces.ts';
 
 const path = '/verification';
 
+export interface UserVerificationData {
+  userVerifications: UserVerification[];
+  count: number;
+}
 export interface VerificationsResponse {
-  data: { userVerifications: UserVerification[]; count: number };
+  data: UserVerificationData;
 }
 
-export interface ManageVerificationPayload {
-  User: UserInfo;
-  status: SUBSCRIPTION_STATUS;
-}
 export const getUserVerifications = async ({ page, take }: { page: number; take: number }) => {
   const res = (await api.get(`${path}?page=${page}&take=${take}`)).data as VerificationsResponse;
   return res.data;
 };
 
-export const manageVerification = async (payload: ManageVerificationPayload) => {
-  const res = (await api.put(`${path}`, payload)).data as VerificationsResponse;
+export const acceptVerification = async (userId: number) => {
+  const res = (await api.put(`${path}/${userId}/verify`)).data as VerificationsResponse;
+  return res.data;
+};
+
+export const rejectVerification = async (userId: number) => {
+  const res = (await api.put(`${path}/${userId}/reject`)).data as VerificationsResponse;
   return res.data;
 };

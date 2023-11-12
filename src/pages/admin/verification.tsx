@@ -1,13 +1,18 @@
 import { TypographyH2 } from '@/components/ui/typography.tsx';
 import { VerificationsTable } from '@/components/admin/verifications-table.tsx';
 import { AdminLayout } from '@/components/layout/admin-layout.tsx';
+import { useQuery } from '@tanstack/react-query';
+import { getUserVerifications } from '@/services/verifications.ts';
+import { useSearchParams } from 'react-router-dom';
 
-
-export const Verification = () => {
+export const VerificationPage = () => {
+  const [searchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1');
+  const { data, isLoading } = useQuery({ queryKey: ['userVerifications', page, 9], queryFn: () => getUserVerifications({ page, take: 9 }) });
   return (
     <AdminLayout>
       <TypographyH2 text="Curator Verifications" />
-      <VerificationsTable />
+      <VerificationsTable data={data} isLoading={isLoading} showPagination={true} />
     </AdminLayout>
   );
 };
