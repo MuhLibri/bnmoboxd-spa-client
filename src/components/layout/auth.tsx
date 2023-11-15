@@ -1,6 +1,12 @@
 import { ReactNode } from 'react';
+import { getToken } from '@/utils/token-storage.ts';
+import { Navigate } from 'react-router-dom';
 
 const AuthLayout = ({ children }: { children: ReactNode }) => {
+  const token = getToken();
+  if (token) {
+    return <Navigate to="/" />;
+  }
   return (
     <div className="container relative h-screen w-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
