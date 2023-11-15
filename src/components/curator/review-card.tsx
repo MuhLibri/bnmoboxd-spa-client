@@ -2,7 +2,7 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/comp
 import { StarIcon } from 'lucide-react';
 import { EditReviewModal } from '@/components/curator/review-modal.tsx';
 import { DeleteReviewDialog } from '@/components/curator/delete-review-dialog.tsx';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { CreatedCuratorReview } from '@/services/reviews.ts';
 
 export function ReviewCard({ data }: { data: CreatedCuratorReview }) {
