@@ -3,7 +3,7 @@
 BNMO BOXD merupakan aplikasi web review film yang memiliki tiga role yaitu User, Admin, dan Curator.
 Untuk bagian monolitik, BNMO BOXD menggunakan PHP untuk server-side, vanila HTML, CSS, dan JS untuk client-side, serta MySQL sebagai RDBMS dari database.
 Bagian monolitik merupakan bagian utama dari aplikasi dimana role User yang merupakan pengguna biasa berinteraksi dengan BNMO BOXD.
-Untuk bagian Curator menggunakan, ReactTS untuk tampilan depan, REST Service sebagai back-end, dan SOAP untuk menghubungkan dengan bagian monolitik.
+Untuk bagian Curator menggunakan ReactTS untuk tampilan depan, REST Service sebagai back-end, dan SOAP untuk menghubungkan dengan bagian monolitik.
 Aplikasi ini dibuat untuk memenuhi Tugas Besar 2 mata kuliah Pengembangan Aplikasi Berbasis Web IF3110 2023/2024.
 
 ## Fitur
@@ -12,7 +12,7 @@ Role Curator pada BNMO BOXD dapat membuat review terhadap suatu film. Review ter
 Untuk melakukan susbscribe, User perlu mengirim permintaan subscribe terlebih dahulu. Admin lalu dapat menyetuji atau menolak permintaan subscribe dari User.
 Untuk mendaftar menjadi Curator, pengguna perlu melakukan registrasi dan meminta verifikasi ke Admin.
 Hanya Curator yang telah diverifikasi oleh Admin yang dapat melakukan login dan mengakses fitur-fitur Curator.
-Untuk fitur yang disediakan pada bgaian monolitik, dapat melihat repository PHP APP.
+Untuk fitur yang disediakan pada bagian monolitik, dapat melihat repository PHP APP.
 Ada dua level yang akan digunakan untuk mengklasifikasikan hak akses dari fitur pada bagian curator, yaitu:
 
 1. All (Semua dapat mengakses)
@@ -37,7 +37,7 @@ Admin:
 
 - Melihat permintaan subscription
 - Melihat permintaan verification
-- Menerima/menolak permintaan subscribe
+- Menerima/menolak permintaan subscription
 - Menerima/menolak permintaan verification
 
 ## Screenshots
@@ -131,7 +131,8 @@ Admin:
   Untuk memverifikasi apakah NPM telah terinstall, maka coba jalankan `npm -v` or `npm --version`
 
 - PNPM
-  Jalankan perintah `npm install -g pnpm` pada terminal
+
+  - Jalankan perintah `npm install -g pnpm` pada terminal
 
   Untuk memverifikasi apakah PNPM telah terinstall, maka coba jalankan `pnpm --version`
 
