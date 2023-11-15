@@ -145,8 +145,32 @@ Admin:
 3. Isi file `.env` dengan (terdapat pada .env.example)
    ```env
     VITE_REST_API_URL=http://localhost:3000
+    VITE_PHP_API_URL=http://localhost:8080
    ```
 4. Buka terminal lalu jalankan `pnpm install` atau `pnpm i`
 5. Jalankan `pnpm run build`
 6. Jalankan `docker compose up -d`
 7. Buka browser dan buka `localhost:5173`
+
+## Task
+| 13521044                     | 13521047 | 13521107 |
+|------------------------------|----------|----------|
+| Login Page                   |          |          |
+| Register Page                |          |          |
+| Curator Dashboard            |          |          |
+| Admin Dashboard              |          |          |
+| Create, Edit, Delete Review  |          |          |
+| Subscription Management Page |          |          |
+| Edit Profile Page            |          |          |
+| API Integration              |          |          |
+| Docker                       |          |          |
+
+## OWASP
+This app is secure fro `HTML / CSS Injection Attack`. HTML/CSS injection attacks, also known as Cross-Site Scripting (XSS) attacks, occur when an attacker is able to inject malicious HTML or CSS code into a web page that is then served to other users. XSS attacks can have serious consequences, ranging from stealing sensitive information to taking control of user accounts.
+
+1. The usage of `react` framework parses JS code in as string literal, so XSS attacks aren't reflected in the app.
+2. Usage of `zod` to validate user input
+
+The following screenshot shows that the html injection by the attacker fails because the text doesnt become bold:
+![image](documentations/owasp/xss.png)
+
