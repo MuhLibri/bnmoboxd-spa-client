@@ -165,3 +165,12 @@ Admin:
 | API Integration              |          |          |
 | Docker                       |          |          |
 
+## OWASP
+This app is secure fro `HTML / CSS Injection Attack`. HTML/CSS injection attacks, also known as Cross-Site Scripting (XSS) attacks, occur when an attacker is able to inject malicious HTML or CSS code into a web page that is then served to other users. XSS attacks can have serious consequences, ranging from stealing sensitive information to taking control of user accounts.
+
+1. The usage of `react` framework parses JS code in as string literal, so XSS attacks aren't reflected in the app.
+2. Usage of `zod` to validate user input
+
+The following screenshot shows that the html injection by the attacker fails because the text doesnt become bold:
+![image](documentations/owasp/xss.png)
+
