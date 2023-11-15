@@ -8,7 +8,8 @@ import { SubscriptionsTable } from '@/components/admin/subscriptions-table.tsx';
 export const SubscriptionPage = () => {
   const [searchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1');
-  const { data, isLoading } = useQuery({ queryKey: ['subscriptions', page, 9], queryFn: () => getSubscriptions({ page, take: 9 }) });
+  const take = 10;
+  const { data, isLoading } = useQuery({ queryKey: ['subscriptions', page, take], queryFn: () => getSubscriptions({ page, take }) });
   return (
     <AdminLayout>
       <TypographyH2 text="Subscriptions" />

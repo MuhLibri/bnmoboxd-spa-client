@@ -8,7 +8,8 @@ import { useSearchParams } from 'react-router-dom';
 export const VerificationPage = () => {
   const [searchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1');
-  const { data, isLoading } = useQuery({ queryKey: ['userVerifications', page, 9], queryFn: () => getUserVerifications({ page, take: 9 }) });
+  const take = 10;
+  const { data, isLoading } = useQuery({ queryKey: ['userVerifications', page, take], queryFn: () => getUserVerifications({ page, take }) });
   return (
     <AdminLayout>
       <TypographyH2 text="Curator Verifications" />
