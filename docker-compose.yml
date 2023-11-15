@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  bnmoboxd-spa:
+    container_name: bnmoboxd-spa
+    hostname: bnmoboxd-spa
+    build: .
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./dist:/usr/share/nginx/html
