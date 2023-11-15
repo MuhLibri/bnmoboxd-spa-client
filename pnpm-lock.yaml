@@ -68,9 +68,6 @@ dependencies:
   http-status-codes:
     specifier: ^2.3.0
     version: 2.3.0
-  jwt-decode:
-    specifier: ^4.0.0
-    version: 4.0.0
   lucide-react:
     specifier: ^0.288.0
     version: 0.288.0(react@18.2.0)
@@ -100,9 +97,6 @@ dependencies:
     version: 3.22.4
 
 devDependencies:
-  '@types/jsonwebtoken':
-    specifier: ^9.0.4
-    version: 9.0.4
   '@types/node':
     specifier: ^20.8.8
     version: 20.8.8
@@ -1979,12 +1973,6 @@ packages:
     resolution: {integrity: sha512-U3PUjAudAdJBeC2pgN8uTIKgxrb4nlDF3SF0++EldXQvQBGkpFZMSnwQiIoDU77tv45VgNkl/L4ouD+rEomujw==}
     dev: true
 
-  /@types/jsonwebtoken@9.0.4:
-    resolution: {integrity: sha512-8UYapdmR0QlxgvJmyE8lP7guxD0UGVMfknsdtCFZh4ovShdBl3iOI4zdvqBHrB/IS+xUj3PSx73Qkey1fhWz+g==}
-    dependencies:
-      '@types/node': 20.8.8
-    dev: true
-
   /@types/node@20.8.8:
     resolution: {integrity: sha512-YRsdVxq6OaLfmR9Hy816IMp33xOBjfyOgUd77ehqg96CFywxAPbDbXvAsuN2KVg2HOT8Eh6uAfU+l4WffwPVrQ==}
     dependencies:
@@ -3615,11 +3603,6 @@ packages:
       object.assign: 4.1.4
       object.values: 1.1.7
     dev: true
-
-  /jwt-decode@4.0.0:
-    resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
-    engines: {node: '>=18'}
-    dev: false
 
   /keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
