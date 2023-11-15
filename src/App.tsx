@@ -12,6 +12,7 @@ import { Toaster } from '@/components/ui/toaster.tsx';
 import { VerificationPage } from '@/pages/admin/verification.tsx';
 import { SubscriptionPage } from '@/pages/admin/subscription.tsx';
 import { ProfilePage } from '@/pages/curator/profile.tsx';
+import { UserProvider } from '@/context/user-context.tsx';
 
 function App() {
   const queryClient = new QueryClient();
@@ -51,8 +52,10 @@ function App() {
   ]);
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <Toaster />
+      <UserProvider>
+        <RouterProvider router={router} />
+        <Toaster />
+      </UserProvider>
     </QueryClientProvider>
   );
 }

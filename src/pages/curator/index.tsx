@@ -7,9 +7,11 @@ import { getCuratorReviews } from '@/services/reviews.ts';
 import { ReviewCard } from '@/components/curator/review-card.tsx';
 import { CuratorLayout } from '@/components/layout/curator-layout.tsx';
 import { useNavigate } from 'react-router-dom';
+import { getSubscriptionCount } from '@/services/subscriptions.ts';
 
 const CuratorDashboard = () => {
-  const { data, isLoading } = useQuery({ queryKey: ['reviews'], queryFn: () => getCuratorReviews({ page: 1, take: 6 }) });
+  const reviewsQuery = useQuery({ queryKey: ['reviews'], queryFn: () => getCuratorReviews({ page: 1, take: 6 }) });
+  const subsQuery = useQuery({ queryKey: ['subs-count'], queryFn: () => getSubscriptionCount() });
   const navigate = useNavigate();
   return (
     <CuratorLayout>
@@ -21,8 +23,7 @@ const CuratorDashboard = () => {
             <User2 />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">10</div>
-            <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+            <div className="text-2xl font-bold text-primary">{subsQuery.data?.count}</div>
           </CardContent>
         </Card>
         <Card>
@@ -31,7 +32,7 @@ const CuratorDashboard = () => {
             <MessageCircle />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">{data?.count}</div>
+            <div className="text-2xl font-bold text-primary">{reviewsQuery.data?.count}</div>
           </CardContent>
         </Card>
       </div>
@@ -39,12 +40,12 @@ const CuratorDashboard = () => {
         <CardHeader className="items-start p-0 pb-6">
           <CardTitle>Your Reviews</CardTitle>
         </CardHeader>
-        <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-6">
-          {data?.reviews.map(review => {
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full gap-6">
+          {reviewsQuery.data?.reviews.map(review => {
             return <ReviewCard key={review.id} data={review} />;
           })}
         </div>
-        {isLoading && (
+        {reviewsQuery.isLoading && (
           <div className="w-full h-full flex items-center justify-center">
             <Loader2 className="mr-2 h-12 w-12 animate-spin" />{' '}
           </div>

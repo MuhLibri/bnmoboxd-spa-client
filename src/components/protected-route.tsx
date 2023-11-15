@@ -1,18 +1,13 @@
 import { ReactElement } from 'react';
-import { getToken, setToken } from '@/utils/token-storage.ts';
+import { useUser } from '@/context/user-context.tsx';
 import { Navigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
-import { Token } from '@/utils/interfaces.ts';
 
 export const ProtectedRoute = ({ adminPage, curatorPage }: { adminPage?: ReactElement; curatorPage?: ReactElement }) => {
-  const token = getToken();
-  console.log('hahhhh');
-  if (!token) {
-    console.log('masuk sinii kah');
-    return <Navigate to="/login" />;
-  }
-  try {
-    const { user } = jwtDecode<Token>(token);
+  const { user, loading } = useUser();
+  if (!loading) {
+    if (!user) {
+      return <Navigate to="/login" />;
+    }
     if (user.isAdmin && adminPage) {
       return adminPage;
     }
@@ -20,8 +15,5 @@ export const ProtectedRoute = ({ adminPage, curatorPage }: { adminPage?: ReactEl
       return curatorPage;
     }
     return <Navigate to="/" />;
-  } catch (e) {
-    setToken(null);
-    return <Navigate to="/login" />;
   }
 };

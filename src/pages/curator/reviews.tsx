@@ -11,7 +11,7 @@ import { useSearchParams } from 'react-router-dom';
 export const Reviews = () => {
   const [searchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1');
-  const { data, isLoading } = useQuery({ queryKey: ['reviews', page], queryFn: () => getCuratorReviews({ page, take: 9 }) });
+  const { data, isLoading } = useQuery({ queryKey: ['reviews', page], queryFn: () => getCuratorReviews({ page, take: 10 }) });
   return (
     <CuratorLayout>
       <div className="flex w-full justify-between">
@@ -23,12 +23,12 @@ export const Reviews = () => {
           <Loader2 className="mr-2 h-12 w-12 animate-spin" />{' '}
         </div>
       )}
-      <div className="grid grid-cols-1 lg:grid-cols-3 max-w-full gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 max-w-full gap-6">
         {data?.reviews.map((review, i) => {
           return <ReviewCard key={i} data={review} />;
         })}
       </div>
-      {data && data.count > 0 && <Pagination totalItems={data.count || 0} take={9} />}
+      {data && data.count > 0 && <Pagination totalItems={data.count || 0} take={10} />}
     </CuratorLayout>
   );
 };

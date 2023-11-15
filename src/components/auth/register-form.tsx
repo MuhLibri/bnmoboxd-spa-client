@@ -58,7 +58,7 @@ export const RegisterForm = () => {
 
   return (
     <Form {...form}>
-      <form className="space-y-8">
+      <form className="space-y-8" onSubmit={form.handleSubmit(values => mutation.mutate(values))}>
         <FormField
           control={form.control}
           name="firstName"

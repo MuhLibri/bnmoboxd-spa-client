@@ -11,11 +11,12 @@ import {
 import { Button } from '@/components/ui/button.tsx';
 
 import { useState } from 'react';
-import { setProfilePicturePath, setToken, setUsername } from '@/utils/token-storage.ts';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '@/context/user-context.tsx';
 
 export const LogoutDialog = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
   const [open, setOpen] = useState(false);
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -32,9 +33,7 @@ export const LogoutDialog = () => {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
-              setToken(null);
-              setProfilePicturePath('');
-              setUsername('');
+              setUser(undefined);
               navigate('/login');
             }}
           >

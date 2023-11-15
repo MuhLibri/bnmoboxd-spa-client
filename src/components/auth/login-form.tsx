@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/components/ui/use-toast.ts';
 import { AxiosError } from 'axios';
+import { useUser } from '@/context/user-context.tsx';
 
 const loginFormSchema = z.object({
   username: z.string().min(1, { message: 'Please fill in your username!' }),
@@ -17,11 +18,14 @@ const loginFormSchema = z.object({
 export const LoginForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { setUser } = useUser();
+
   const mutation = useMutation({
     mutationFn: (payload: LoginPayload) => {
       return login(payload);
     },
-    onSuccess: () => {
+    onSuccess: data => {
+      setUser(data);
       navigate('/');
     },
     onError: err => {

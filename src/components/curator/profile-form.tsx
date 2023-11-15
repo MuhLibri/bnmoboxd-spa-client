@@ -47,7 +47,7 @@ export const ProfileForm = ({ data }: { data: User | undefined }) => {
       toast({
         description: 'Profile image updated successfully',
       });
-      navigate('/profile');
+      navigate('/');
       query.invalidateQueries({ queryKey: ['profile'] });
     },
     onError: err => {
@@ -55,7 +55,6 @@ export const ProfileForm = ({ data }: { data: User | undefined }) => {
         toast({
           description: err.response?.data.message,
         });
-        navigate('/');
       }
     },
   });

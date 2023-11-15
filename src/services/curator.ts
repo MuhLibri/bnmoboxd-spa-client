@@ -20,7 +20,7 @@ export const uploadProfileImage = async (payload: FormData) => {
 };
 
 export const getProfile = async () => {
-  const res = (await api.get(`${path}/profile`)).data as ProfileResponse;
+  const res = (await api.get(`/profile`)).data as ProfileResponse;
   return res.data;
 };
 

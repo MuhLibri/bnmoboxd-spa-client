@@ -7,17 +7,25 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { MenuIcon } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx';
 import { VITE_REST_API_URL } from '@/utils/config.ts';
-import { getProfilePicturePath, getUsername } from '@/utils/token-storage.ts';
+import { useUser } from '@/context/user-context.tsx';
 
-interface NavItem {
+interface NavItemLink {
   title: string;
   link: string;
 }
-export const SideBar = ({ items, isUser }: { items: NavItem[]; isUser?: boolean }) => {
+export const SideBar = ({ items, isUser }: { items: NavItemLink[]; isUser?: boolean }) => {
   const pathname = useLocation().pathname;
-  const profileImage = getProfilePicturePath();
-  const username = getUsername();
-  const NavItem = ({ item }: { item: NavItem }) => {
+  const { user } = useUser();
+  const ProfileLink = () => (
+    <a href="/profile" className="flex justify-start w-full gap-4 lg:bg-muted rounded-md p-1 lg:p-4 items-center">
+      <Avatar>
+        <AvatarImage src={`${VITE_REST_API_URL}/static/images/${user?.profileImage}`} className="bg-contain" />
+        <AvatarFallback>{user?.username[0].toUpperCase()}</AvatarFallback>
+      </Avatar>
+      <p>{user?.username}</p>
+    </a>
+  );
+  const NavItem = ({ item }: { item: NavItemLink }) => {
     return (
       <a
         href={item.link}
@@ -53,7 +61,12 @@ export const SideBar = ({ items, isUser }: { items: NavItem[]; isUser?: boolean 
                   <NavItem item={item} />
                 </DropdownMenuItem>
               ))}
-              <div className="px-4 pb-4">
+              {isUser && (
+                <DropdownMenuItem key="/profile">
+                  <NavItem item={{ link: '/profile', title: 'Profile' }} />
+                </DropdownMenuItem>
+              )}
+              <div className="px-4 pb-4 mt-2">
                 <LogoutDialog />
               </div>
             </DropdownMenuContent>
@@ -61,15 +74,7 @@ export const SideBar = ({ items, isUser }: { items: NavItem[]; isUser?: boolean 
         </div>
       </div>
       <div className="hidden lg:flex lg:flex-col lg:gap-4">
-        {isUser && (
-          <a href="/profile" className="flex justify-start w-full gap-4 bg-muted rounded-md p-4 items-center">
-            <Avatar>
-              <AvatarImage src={`${VITE_REST_API_URL}/static/images/${profileImage}`} />
-              <AvatarFallback>{username && username[0].toUpperCase()}</AvatarFallback>
-            </Avatar>
-            <p>{username}</p>
-          </a>
-        )}
+        {isUser && <ProfileLink />}
         <LogoutDialog />
       </div>
     </Card>

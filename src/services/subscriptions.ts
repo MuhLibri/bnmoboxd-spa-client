@@ -16,6 +16,12 @@ export interface ManageSubscriptionPayload {
   subscriberUsername: string;
   status: SUBSCRIPTION_STATUS;
 }
+
+export interface SubscriptionCountResponse {
+  data: {
+    count: number;
+  };
+}
 export const getSubscriptions = async ({ page, take }: { page: number; take: number }) => {
   const res = (await api.get(`${path}?page=${page}&take=${take}`)).data as SubscriptionsResponse;
   return res.data;
@@ -23,5 +29,10 @@ export const getSubscriptions = async ({ page, take }: { page: number; take: num
 
 export const manageSubscription = async (payload: ManageSubscriptionPayload) => {
   const res = (await api.put(`${path}`, payload)).data as SubscriptionsResponse;
+  return res.data;
+};
+
+export const getSubscriptionCount = async () => {
+  const res = (await api.get(`${path}/count`)).data as SubscriptionCountResponse;
   return res.data;
 };
