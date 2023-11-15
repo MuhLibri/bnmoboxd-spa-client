@@ -9,6 +9,8 @@ export interface User {
   lastName?: string;
   email: string;
   isAdmin: boolean;
+  bio?: string;
+  profileImage: string;
 }
 
 export interface CuratorReview {

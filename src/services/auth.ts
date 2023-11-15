@@ -1,6 +1,6 @@
 import { api } from '@/utils/api.ts';
 import { BaseResponse, User } from '@/utils/interfaces.ts';
-import { setToken } from '@/utils/token-storage.ts';
+import { setProfilePicturePath, setToken, setUsername } from '@/utils/token-storage.ts';
 
 export interface LoginPayload {
   username: string;
@@ -26,6 +26,8 @@ export const login = async (payload: LoginPayload): Promise<User> => {
   const response = await api.post('/auth/login', payload);
   const res = response.data as AuthResponse;
   setToken(res.data.auth.access_token);
+  setProfilePicturePath(res.data.auth.user.profileImage);
+  setUsername(res.data.auth.user.username);
   return res.data.auth.user;
 };
 

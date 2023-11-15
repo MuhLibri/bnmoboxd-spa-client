@@ -10,7 +10,7 @@ import { AxiosError } from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/components/ui/use-toast.ts';
 
-const registerFormSchema = z.object({
+export const registerFormSchema = z.object({
   email: z.string({ required_error: "Email can't be empty" }).email({ message: 'Email is invalid' }),
   username: z
     .string({ required_error: "Username can't be empty" })
@@ -58,7 +58,7 @@ export const RegisterForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(values => mutation.mutate(values))} className="space-y-8">
+      <form className="space-y-8">
         <FormField
           control={form.control}
           name="firstName"

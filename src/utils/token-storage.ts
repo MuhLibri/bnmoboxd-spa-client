@@ -9,3 +9,19 @@ export const setToken = (token: string | null) => {
     localStorage.removeItem('token');
   }
 };
+
+export const getProfilePicturePath = () => {
+  return localStorage.getItem('profile_picture');
+};
+
+export const setProfilePicturePath = (path: string) => {
+  localStorage.setItem('profile_picture', path);
+};
+
+export const getUsername = () => {
+  return localStorage.getItem('username');
+};
+
+export const setUsername = (username: string) => {
+  localStorage.setItem('username', username);
+};

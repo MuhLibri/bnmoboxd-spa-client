@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 const AuthLayout = ({ children }: { children: ReactNode }) => {
   const token = getToken();
   if (token) {
+    console.log(token);
     return <Navigate to="/" />;
   }
   return (

@@ -6,14 +6,13 @@ import { Token } from '@/utils/interfaces.ts';
 
 export const ProtectedRoute = ({ adminPage, curatorPage }: { adminPage?: ReactElement; curatorPage?: ReactElement }) => {
   const token = getToken();
+  console.log('hahhhh');
   if (!token) {
+    console.log('masuk sinii kah');
     return <Navigate to="/login" />;
   }
   try {
-    const { exp, user } = jwtDecode<Token>(token);
-    if (Date.now() > parseInt(exp) * 1000) {
-      return <Navigate to="/login" />;
-    }
+    const { user } = jwtDecode<Token>(token);
     if (user.isAdmin && adminPage) {
       return adminPage;
     }

@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster.tsx';
 import { VerificationPage } from '@/pages/admin/verification.tsx';
 import { SubscriptionPage } from '@/pages/admin/subscription.tsx';
+import { ProfilePage } from '@/pages/curator/profile.tsx';
 
 function App() {
   const queryClient = new QueryClient();
@@ -38,6 +39,10 @@ function App() {
     {
       path: '/subscriptions',
       element: <ProtectedRoute adminPage={<SubscriptionPage />} />,
+    },
+    {
+      path: '/profile',
+      element: <ProtectedRoute curatorPage={<ProfilePage />} />,
     },
     {
       path: '*',

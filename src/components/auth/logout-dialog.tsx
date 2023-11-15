@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button.tsx';
 
 import { useState } from 'react';
-import { setToken } from '@/utils/token-storage.ts';
+import { setProfilePicturePath, setToken, setUsername } from '@/utils/token-storage.ts';
 import { useNavigate } from 'react-router-dom';
 
 export const LogoutDialog = () => {
@@ -33,6 +33,8 @@ export const LogoutDialog = () => {
           <AlertDialogAction
             onClick={() => {
               setToken(null);
+              setProfilePicturePath('');
+              setUsername('');
               navigate('/login');
             }}
           >

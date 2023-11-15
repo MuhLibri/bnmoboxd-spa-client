@@ -3,7 +3,6 @@ import { TypographyH2 } from '@/components/ui/typography.tsx';
 import { useQuery } from '@tanstack/react-query';
 import { getCuratorReviews } from '@/services/reviews.ts';
 import { Loader2 } from 'lucide-react';
-import { useEffect } from 'react';
 import { CreateReviewModal } from '@/components/curator/review-modal.tsx';
 import { CuratorLayout } from '@/components/layout/curator-layout.tsx';
 import { Pagination } from '@/components/ui/pagination.tsx';
@@ -13,9 +12,6 @@ export const Reviews = () => {
   const [searchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1');
   const { data, isLoading } = useQuery({ queryKey: ['reviews', page], queryFn: () => getCuratorReviews({ page, take: 9 }) });
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
   return (
     <CuratorLayout>
       <div className="flex w-full justify-between">
