@@ -153,17 +153,17 @@ Admin:
 7. Buka browser dan buka `localhost:5173`
 
 ## Task
-| 13521044                     | 13521047                     | 13521107 |
-|------------------------------|------------------------------|----------|
-| Login Page                   | Verification Management Page |          |
-| Register Page                | Review and Testing           |          |
-| Curator Dashboard            |                              |          |
-| Admin Dashboard              |                              |          |
-| Create, Edit, Delete Review  |                              |          |
-| Subscription Management Page |                              |          |
-| Edit Profile Page            |                              |          |
-| API Integration              |                              |          |
-| Docker                       |                              |          |
+| 13521044                     | 13521047                     | 13521107           |
+|------------------------------|------------------------------|--------------------|
+| Login Page                   | Verification Management Page | Review and Testing |
+| Register Page                | Review and Testing           |                    |
+| Curator Dashboard            |                              |                    |
+| Admin Dashboard              |                              |                    |
+| Create, Edit, Delete Review  |                              |                    |
+| Subscription Management Page |                              |                    |
+| Edit Profile Page            |                              |                    |
+| API Integration              |                              |                    |
+| Docker                       |                              |                    |
 
 ## OWASP
 This app is secure fro `HTML / CSS Injection Attack`. HTML/CSS injection attacks, also known as Cross-Site Scripting (XSS) attacks, occur when an attacker is able to inject malicious HTML or CSS code into a web page that is then served to other users. XSS attacks can have serious consequences, ranging from stealing sensitive information to taking control of user accounts.
