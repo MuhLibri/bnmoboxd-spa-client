@@ -8,6 +8,7 @@ import { ReviewCard } from '@/components/curator/review-card.tsx';
 import { CuratorLayout } from '@/components/layout/curator-layout.tsx';
 import { useNavigate } from 'react-router-dom';
 import { getSubscriptionCount } from '@/services/subscriptions.ts';
+import { Skeleton } from '@/components/ui/skeleton.tsx';
 
 const CuratorDashboard = () => {
   const reviewsQuery = useQuery({ queryKey: ['reviews'], queryFn: () => getCuratorReviews({ page: 1, take: 6 }) });
@@ -23,7 +24,11 @@ const CuratorDashboard = () => {
             <User2 />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">{subsQuery.data?.count}</div>
+            {subsQuery.isLoading ? (
+              <Skeleton className="w-[200px] h-4" />
+            ) : (
+              <div className="text-2xl font-bold text-primary">{subsQuery.data?.count || 0}</div>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -32,7 +37,11 @@ const CuratorDashboard = () => {
             <MessageCircle />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">{reviewsQuery.data?.count}</div>
+            {reviewsQuery.isLoading ? (
+              <Skeleton className="w-[200px] h-4" />
+            ) : (
+              <div className="text-2xl font-bold text-primary">{reviewsQuery.data?.count}</div>
+            )}
           </CardContent>
         </Card>
       </div>
